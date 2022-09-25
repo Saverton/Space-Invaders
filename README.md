@@ -4,10 +4,7 @@ PROJECT DESCRIPTION: This is my version of the Arcade classic, "Space Invaders".
 
 HOW TO RUN: Download the Love2d engine (https://love2d.org/) and run the directory using the "love.exe" application.
 
-CREDITS: The project implements built-in libraries from Love2d as well as:
-    - OOP class library (https://github.com/vrld/hump)
-    - a 'push' library that resizes content to fit a window of a different scale than the scale used in game (https://github.com/Ulydev/push)
-    - the knife timer management library (https://github.com/airstruck/knife)
+CREDITS: The project implements built-in libraries from Love2d as well as: OOP class library (https://github.com/vrld/hump), a 'push' library that resizes content to fit a window of a different scale than the scale used in game (https://github.com/Ulydev/push), the knife timer management library (https://github.com/airstruck/knife)
 
 
 
