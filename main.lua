@@ -53,13 +53,14 @@ function love.load()
         ['invaders'] = love.graphics.newImage('graphics/invaders.png'),
         ['life'] = love.graphics.newImage('graphics/life.png'),
         ['final'] = love.graphics.newImage('graphics/Final_Invader.png'),
-        ['particle'] = love.graphics.newImage('graphics/particle.png')
+        ['particle'] = love.graphics.newImage('graphics/particle.png'),
+        parachute = love.graphics.newImage('graphics/parachute.png')
     }
 
     gFrames = {
         ['invaders'] = generateQuads(gTextures['invaders'], 16, 16, 0, 4),
         ['final_invader'] = generateQuads(gTextures['final'], 32, 16, 0, 1),
-        ['defender'] = generateQuads(gTextures['final'], 16, 16, 2, 1)
+        ['defender'] = generateQuads(gTextures['final'], 16, 16, 2, 1),
     }
 
     gFonts = {

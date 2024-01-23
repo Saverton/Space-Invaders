@@ -13,6 +13,8 @@ function PlayState:enter(params)
         self.fleet.timer = math.abs(30 / self.fleet.dx)
     end
 
+    self.miscEntities = {}
+
     self.score = params.score
     self.startingScore = params.score
 
@@ -83,7 +85,7 @@ function PlayState:update(dt)
                     for k, invader in pairs(row) do
                         if self:collides(bullet.x, bullet.y, bullet.width, bullet.height, invader.x, invader.y, invader.width, invader.height) then
                             --remove invader, play invader death, remove bullet that hit invader.
-                            self.fleet:explode(invader.x + 8, invader.y + 8)
+                            self.fleet:explode(invader.x + invader.width / 2, invader.y + invader.height / 2)
                             self.fleet.size = self.fleet.size - 1
                             self.fleet.fleet[j][k] = nil
                             Timer.after(1.5, function()
@@ -103,6 +105,11 @@ function PlayState:update(dt)
                             gSounds['invader_dies']:stop()
                             gSounds['invader_dies']:play()
                             table.insert(deadBullets, i)
+
+                            -- 1/500 chance to spawn parachute
+                            if math.random(500) == 1 then
+                                table.insert(self.miscEntities, Parachute(invader.x + invader.width / 2, invader.y + invader.height / 2))
+                            end
 
                             --update player score
                             self.score = self.score + invader.type * 50
@@ -172,6 +179,24 @@ function PlayState:update(dt)
         for k in pairs(deadBulletsF) do
             self.fleet.bullets[deadBulletsF[k]] = nil
         end
+
+        -- update misc entities
+        local miscEntitiesToRemove = {}
+        for i, entity in ipairs(self.miscEntities) do
+            entity:update(dt, self.player)
+            if entity:shouldDespawn() then
+                table.insert(miscEntitiesToRemove, i)
+            end
+        end
+        for i, entityIndex in ipairs(miscEntitiesToRemove) do
+            local entity = self.miscEntities[entityIndex]
+            if entity.type == 'parachute' then
+                table.insert(self.miscEntities, RunningAlien(entity.x, VIRTUAL_HEIGHT - 5))
+            end
+
+            table.remove(self.miscEntities, entityIndex)
+        end
+        miscEntitiesToRemove = nil
     end
     
     if not self.paused then
@@ -206,6 +231,9 @@ function PlayState:render()
     end
     for i in pairs(self.explosions) do
         love.graphics.draw(self.explosions[i], 0, 0)
+    end
+    for _, entity in ipairs(self.miscEntities) do
+        entity:render()
     end
 
     love.graphics.setFont(gFonts['small'])

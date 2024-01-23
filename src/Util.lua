@@ -18,3 +18,14 @@ function generateQuads(atlas, tileWidth, tileHeight, startTile, counterMax)
     ::finish::
     return quads
 end
+
+function DidCollide(entityA, entityB)
+    assert(
+    entityA.x and entityA.y and entityB.x and entityB.y and entityA.width and entityA.height and entityB.width and
+    entityB.height, 'Both entities must have non-nil x, y, width, and height properties')
+    
+    return not (entityA.x + entityA.width < entityB.x)
+        and not (entityA.x > entityB.x + entityB.width)
+        and not (entityA.y + entityA.height < entityB.y)
+        and not (entityA.y > entityB.y + entityB.height)
+end
