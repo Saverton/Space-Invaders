@@ -1,4 +1,5 @@
 PROJECT TITLE: Space Invaders, My Version
+Version 1.1.0
 
 PROJECT DESCRIPTION: This is my version of the Arcade classic, "Space Invaders". The player controls a tank that fires projectiles upwards toward an oncoming fleet of invaders. You must defeat the invaders before they reach the ground or before they anihilate you with one of their own lasers! This game is designed to have an infinitely scaling difficulty with each level. There is a secret boss battle as well, but that will just remain a mystery for now. The application also saves the user's top 10 high scores across instances of the application and has custom built in GUI elements. This project was created with the intention of testing my skills in Lua and the LOVE2d framework as taught by Harvard's GD50 course.
 
