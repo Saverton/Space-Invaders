@@ -5,6 +5,8 @@ function StartState:enter(params)
 
     self.highlightedOption = 0
 
+    self.isOptionSelected = false
+
     self.alpha = 1
 
     self.options = {
@@ -36,8 +38,9 @@ function StartState:enter(params)
 end
 
 function StartState:update(dt)
-    if MouseInput.b == 1 then
+    if MouseInput.b == 1 and not self.isOptionSelected then
         if self.highlightedOption == 1 then
+            self.isOptionSelected = true
             Timer.tween(1, {
                 [self] = {alpha = 0},
                 [self.particleColor] = {[1] = 0.05, [2] = 0.1, [3] = 0.1}
@@ -48,6 +51,7 @@ function StartState:update(dt)
             })
             end)
         elseif self.highlightedOption == 2 then
+            self.isOptionSelected = true
             gStateMachine:change('high-score', {
                 highScores = self.highScores
             })
